@@ -2,7 +2,7 @@
 
 ## 1. Site not responding
 
-1. Check if the container is running:
+1. Check if both containers are running (nginx + web):
    docker compose --profile dev ps
 
 2. Check the service logs:

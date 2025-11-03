@@ -125,8 +125,19 @@ docker compose --profile uat up -d
 docker compose --profile prod up -d
 ```
 
+## 7. Reverse proxy (Nginx)
 
-## 7. Health-check script + cron
+This stack also runs an `nginx` container in front of the Flask app. The host exposes 8080, which maps to port 80 in the Nginx container, and Nginx forwards all requests to the Flask service (`web`) on port 5000 inside the Docker network:
+
+
+This allows us to:
+- keep the app on its internal port (5000)
+- have a single public entrypoint (8080 → 80)
+- add HTTPS or routing later without changing the app
+- debug by hitting either Nginx (8080) or the app directly (5000, if exposed)
+
+
+## 8. Health-check script + cron
 
 `tools/health_check.py`:
 ```python
@@ -148,7 +159,7 @@ Example cron (every 5 minutes):
 If the script exits with a non-zero code, it logs to syslog.
 
 
-## 8. CI/CD with GitHub Actions
+## 9. CI/CD with GitHub Actions
 
 The workflow in `.github/workflows/ci.yml` does:
 
@@ -183,7 +194,7 @@ Every time you `git push` to `main`, GitHub runs tests and publishes a fresh con
 You can see runs in the **Actions** tab
 
 
-## 9. Using the image from GHCR
+## 10. Using the image from GHCR
 
 On any machine with Docker:
 
@@ -193,7 +204,7 @@ docker run --rm -p 8080:5000 ghcr.io/<GITHUB_USER>/<REPO_NAME>:latest
 ```
 
 
-## 10. RUNBOOK
+## 11. RUNBOOK
 
 See `RUNBOOK.md` for typical ops steps, for example:
 - check if the container is running
@@ -204,7 +215,7 @@ See `RUNBOOK.md` for typical ops steps, for example:
 
 
 
-## 11. Troubleshooting
+## 12. Troubleshooting
 
 - **\`permission denied: /var/run/docker.sock\`**  
    your user is not in the \`docker\` group or Docker service isn’t running.
@@ -220,7 +231,7 @@ See `RUNBOOK.md` for typical ops steps, for example:
 
 
 
-## 12. Quick commands
+## 13. Quick commands
 
 ```bash
 # start dev
@@ -237,7 +248,7 @@ docker compose --profile dev down
 ```
 
 
-## 13. What this project demonstrates
+## 14. What this project demonstrates
 
 - Linux/docker/compose basic proficiency
 - containerizing a Python service
