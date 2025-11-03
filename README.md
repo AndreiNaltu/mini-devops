@@ -246,3 +246,4 @@ docker compose --profile dev down
 - separating environments (DEV/UAT/PROD) conceptually
 - scripting in Python for health checks
 - documenting ops with a RUNBOOK
+test
