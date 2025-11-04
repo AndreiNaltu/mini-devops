@@ -257,3 +257,12 @@ docker compose --profile dev down
 - separating environments (DEV/UAT/PROD) conceptually
 - scripting in Python for health checks
 - documenting ops with a RUNBOOK
+
+## 15. Screenshots
+
+**GitHub Actions (CI)**
+![ci-success](screenshots/ci-success.png)
+
+**Healthcheck via curl**
+![healthcheck](screenshots/healthcheck.png)
+
